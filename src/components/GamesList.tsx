@@ -1,24 +1,36 @@
+import { FC, SVGProps } from "react";
 import { Link, LinkProps } from "react-router-dom";
+import { KeyboardIcon } from "../icons/KeyboardIcon";
 import { classnames } from "../utils";
 
-type GameLinkProps = LinkProps;
+type GameLinkProps = LinkProps & {
+    text: string;
+    icon?: FC<SVGProps<SVGSVGElement>>;
+};
 
-const GameLink = ({ className, children, ...props }: GameLinkProps) => (
+const GameLink = ({
+    text,
+    icon: Icon,
+    className,
+    children,
+    ...props
+}: GameLinkProps) => (
     <Link
         className={classnames(
-            "p-6 bg-primary-600 rounded-xl shadow-sm text-5xl text-primary-400 transition-all duration-300 transform hover:text-secondary hover:-translate-y-1.5",
+            "flex flex-col items-center p-6 bg-primary-600 rounded-xl shadow-sm text-5xl text-primary-400 transition-all duration-300 transform hover:text-secondary hover:-translate-y-1.5",
             className
         )}
         {...props}
     >
-        {children}
+        {Icon && <Icon className="w-24" />}
+        <div className="text-center">{text}</div>
     </Link>
 );
 
 export const GamesList = () => {
     return (
         <div className="flex items-center justify-center w-full h-full">
-            <GameLink to="/type-speed">Type Speed</GameLink>
+            <GameLink to="/type-speed" text="Type Speed" icon={KeyboardIcon} />
         </div>
     );
 };
