@@ -16,3 +16,13 @@ export const buildRequestSearchString = (
 export const countWords = (text: string): number => {
     return text.split(" ").filter((word) => word).length;
 };
+
+export const randomDigit = () => Math.floor(Math.random() * 10);
+
+export const randomDigits = (n: number) => {
+    let digits = "";
+    for (let i = 0; i < n; i++) {
+        digits += randomDigit().toString();
+    }
+    return digits;
+};

@@ -1,5 +1,6 @@
 import { FC, SVGProps } from "react";
 import { Link, LinkProps } from "react-router-dom";
+import { CalculatorIcon } from "../icons/CalculatorIcon";
 import { KeyboardIcon } from "../icons/KeyboardIcon";
 import { classnames } from "../utils";
 
@@ -27,10 +28,15 @@ const GameLink = ({
     </Link>
 );
 
-export const GamesList = () => {
-    return (
-        <div className="flex items-center justify-center w-full h-full">
+export const GamesList = () => (
+    <div className="flex items-center justify-center w-full h-full">
+        <div className="grid grid-cols-1 gap-y-10">
             <GameLink to="/type-speed" text="Type Speed" icon={KeyboardIcon} />
+            <GameLink
+                to="/number-memory"
+                text="Number Memory"
+                icon={CalculatorIcon}
+            />
         </div>
-    );
-};
+    </div>
+);

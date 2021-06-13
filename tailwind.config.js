@@ -32,6 +32,7 @@ module.exports = {
                     ...colors.yellow,
                     DEFAULT: colors.yellow["400"],
                 },
+                error: colors.red[400],
             },
             animation: {
                 appear: "appear 0.3s linear",

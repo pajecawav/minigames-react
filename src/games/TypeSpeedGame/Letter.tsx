@@ -10,7 +10,7 @@ type LetterProps = {
 
 const stateClassnames = {
     correct: "text-primary-200",
-    incorrect: "bg-red-400 text-primary-700",
+    incorrect: "bg-error text-primary-700",
     active: "bg-secondary text-primary-700",
     not_typed: "text-primary-500",
 };

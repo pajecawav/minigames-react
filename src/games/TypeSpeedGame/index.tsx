@@ -30,7 +30,7 @@ export const TypeSpeedGame = () => {
         startNewTest();
     }, [startNewTest]);
 
-    const handleKeyDown = useCallback(
+    const handleKeyPress = useCallback(
         (event: KeyboardEvent) => {
             if (!textData) return;
 
@@ -65,11 +65,11 @@ export const TypeSpeedGame = () => {
     );
 
     useEffect(() => {
-        document.body.addEventListener("keypress", handleKeyDown);
+        document.body.addEventListener("keypress", handleKeyPress);
 
         return () =>
-            document.body.removeEventListener("keypress", handleKeyDown);
-    }, [textData, handleKeyDown]);
+            document.body.removeEventListener("keypress", handleKeyPress);
+    }, [textData, handleKeyPress]);
 
     if (textData === null) {
         return (
