@@ -1,50 +1,19 @@
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Button } from "../../ui/Button";
 import { Input } from "../../ui/Input";
 import { gameInitialState, gameReducer } from "./gameReducer";
 
-const SHOW_NUMBERS_TIMEOUT = 3000;
+const SHOW_NUMBERS_TIMEOUT_MS = 3000;
 
 export const NumberMemoryGame = () => {
     const [game, dispatchGameEvent] = useReducer(gameReducer, gameInitialState);
     const [number, setNumber] = useState("");
-    const progressBarRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        let animationFrameRequestId: number | null = null;
-
         if (game.state === "showing_number") {
-            const started = Date.now();
-
-            const drawProgressBar = () => {
-                const passedMS = Date.now() - started;
-
-                if (passedMS >= SHOW_NUMBERS_TIMEOUT) {
-                    dispatchGameEvent({ type: "wait_input" });
-                    setNumber("");
-                    return;
-                }
-
-                const percentage =
-                    100 -
-                    Math.round((passedMS / SHOW_NUMBERS_TIMEOUT) * 100 * 1000) /
-                        1000;
-
-                if (progressBarRef.current) {
-                    progressBarRef.current.style.width = `${percentage}%`;
-                }
-
-                animationFrameRequestId =
-                    requestAnimationFrame(drawProgressBar);
-            };
-
-            animationFrameRequestId = requestAnimationFrame(drawProgressBar);
-
-            return () => {
-                if (animationFrameRequestId) {
-                    cancelAnimationFrame(animationFrameRequestId);
-                }
-            };
+            const cb = () => dispatchGameEvent({ type: "wait_input" });
+            const timeoutId = setTimeout(cb, SHOW_NUMBERS_TIMEOUT_MS);
+            return () => clearTimeout(timeoutId);
         } else if (game.state === "done" || game.state === "not_started") {
             const handleKeyPress = (event: KeyboardEvent) => {
                 if (event.key === "Enter") {
@@ -84,7 +53,9 @@ export const NumberMemoryGame = () => {
                     <div className="h-1 rounded-full w-60 bg-primary-500">
                         <div
                             className="h-full rounded-full bg-secondary"
-                            ref={progressBarRef}
+                            style={{
+                                animation: `shrink ${SHOW_NUMBERS_TIMEOUT_MS}ms linear`,
+                            }}
                         />
                     </div>
                 </div>

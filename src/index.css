@@ -47,3 +47,12 @@ body::-webkit-scrollbar-thumb {
     background-color: lightgrey;
     border-radius: 20px;
 }
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
