@@ -1,6 +1,4 @@
-export const classnames = (
-    ...values: (string | boolean | null | undefined)[]
-): string => {
+export const classnames = (...values: any[]): string => {
     return values
         .filter((value) => typeof value === "string" && value.length > 0)
         .join(" ");
@@ -25,4 +23,8 @@ export const randomDigits = (n: number) => {
         digits += randomDigit().toString();
     }
     return digits;
+};
+
+export const randomNumber = (min: number, max: number) => {
+    return min + Math.floor((max - min) * Math.random());
 };

@@ -1,14 +1,17 @@
 import { useEffect, useReducer, useState } from "react";
 import { Button } from "../../ui/Button";
 import { Input } from "../../ui/Input";
-import { memoryGameInitialState, memoryGameReducer } from "./gameReducer";
+import {
+    numberMemoryGameInitialState,
+    numberMemoryGameReducer,
+} from "./numberMemoryGameReducer";
 
 const SHOW_NUMBERS_TIMEOUT_MS = 3000;
 
 export const NumberMemoryGame = () => {
     const [game, dispatchGameEvent] = useReducer(
-        memoryGameReducer,
-        memoryGameInitialState
+        numberMemoryGameReducer,
+        numberMemoryGameInitialState
     );
     const [number, setNumber] = useState("");
 

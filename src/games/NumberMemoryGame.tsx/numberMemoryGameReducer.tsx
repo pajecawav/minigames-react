@@ -17,13 +17,13 @@ type Action =
     | { type: "next_level" }
     | { type: "wait_input" };
 
-export const memoryGameInitialState: State = {
+export const numberMemoryGameInitialState: State = {
     state: "not_started",
     number: null,
     level: 0,
 };
 
-export const memoryGameReducer = (game: State, action: Action): State => {
+export const numberMemoryGameReducer = (game: State, action: Action): State => {
     switch (action.type) {
         case "new_game":
             return {

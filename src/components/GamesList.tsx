@@ -31,7 +31,7 @@ const GameLink = ({
 
 export const GamesList = () => (
     <div className="flex items-center justify-center w-full h-full">
-        <div className="grid grid-cols-1 gap-y-10">
+        <div className="grid grid-cols-2 gap-10">
             <GameLink
                 to="/reaction-time"
                 text="Reaction Time"
@@ -43,6 +43,7 @@ export const GamesList = () => (
                 text="Number Memory"
                 icon={CalculatorIcon}
             />
+            <GameLink to="/visual-memory" text="Visual Memory" />
         </div>
     </div>
 );

@@ -4,6 +4,7 @@ import { GamesList } from "./components/GamesList";
 import { NumberMemoryGame } from "./games/NumberMemoryGame.tsx";
 import { ReactionTimeGame } from "./games/ReactionTimeGame";
 import { TypeSpeedGame } from "./games/TypeSpeedGame";
+import { VisualMemoryGame } from "./games/VisualMemoryGame";
 
 export const App = () => {
     return (
@@ -21,6 +22,11 @@ export const App = () => {
                         exact
                         path="/number-memory"
                         component={NumberMemoryGame}
+                    />
+                    <Route
+                        exact
+                        path="/visual-memory"
+                        component={VisualMemoryGame}
                     />
                     <Redirect to="/" />
                 </Switch>
