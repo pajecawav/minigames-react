@@ -79,16 +79,25 @@ export const TypeSpeedGame = () => {
     }, [textData, handleKeyPress]);
 
     // caret animation
-    useEffect(() => {
+    const moveCaret = useCallback(() => {
         const caret = document.getElementById("caret");
         const activeLetterElem = document.getElementById("active_letter");
-
         if (caret && activeLetterElem) {
-            const boundingRect = activeLetterElem.getBoundingClientRect();
-            caret.style.top = `${boundingRect.top}px`;
-            caret.style.left = `${boundingRect.left}px`;
+            caret.style.left = activeLetterElem.offsetLeft + "px";
+            caret.style.top = activeLetterElem.offsetTop + "px";
         }
-    }, [currentIndex]);
+    }, []);
+
+    useEffect(() => {
+        moveCaret();
+    }, [currentIndex, moveCaret]);
+
+    useEffect(() => {
+        window.onresize = moveCaret;
+        return () => {
+            window.onresize = null;
+        };
+    }, [moveCaret]);
 
     // quote loading placeholder
     if (textData === null) {
@@ -139,7 +148,12 @@ export const TypeSpeedGame = () => {
                     <div className="relative font-mono leading-10">
                         <div
                             id="caret"
-                            className="fixed text-transparent transition-all duration-100 transform bg-secondary"
+                            className={classnames(
+                                "absolute text-transparent transition-all duration-100 transform",
+                                stats.lastCharacterIsIncorrect
+                                    ? "bg-error"
+                                    : "bg-secondary"
+                            )}
                             style={{ zIndex: -1 }}
                         >
                             {/* add invisible letter to preserve the width and height */}

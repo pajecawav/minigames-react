@@ -11,14 +11,14 @@ type LetterProps = {
 
 const stateClassnames = {
     correct: "text-primary-200",
-    incorrect: "bg-error text-primary-700",
+    incorrect: "text-primary-700",
     not_typed: "text-primary-500",
 };
 
 export const Letter = memo(({ letter, state, id }: LetterProps) => (
     <span
         className={classnames(
-            "whitespace-pre-wrap transition-colors duration-100",
+            "whitespace-pre-wrap transition-colors duration-50",
             stateClassnames[state]
         )}
         id={id}
