@@ -2,6 +2,7 @@ import { FC, SVGProps } from "react";
 import { Link, LinkProps } from "react-router-dom";
 import { CalculatorIcon } from "../icons/CalculatorIcon";
 import { KeyboardIcon } from "../icons/KeyboardIcon";
+import { LightningIcon } from "../icons/LightningIcon";
 import { classnames } from "../utils";
 
 type GameLinkProps = LinkProps & {
@@ -31,6 +32,11 @@ const GameLink = ({
 export const GamesList = () => (
     <div className="flex items-center justify-center w-full h-full">
         <div className="grid grid-cols-1 gap-y-10">
+            <GameLink
+                to="/reaction-time"
+                text="Reaction Time"
+                icon={LightningIcon}
+            />
             <GameLink to="/type-speed" text="Type Speed" icon={KeyboardIcon} />
             <GameLink
                 to="/number-memory"

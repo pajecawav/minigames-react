@@ -1,6 +1,6 @@
 import { randomDigits } from "../../utils";
 
-export type State = {
+type State = {
     state:
         | "not_started"
         | "showing_number"
@@ -11,19 +11,19 @@ export type State = {
     level: number;
 };
 
-export type Action =
+type Action =
     | { type: "new_game" }
     | { type: "finish" }
     | { type: "next_level" }
     | { type: "wait_input" };
 
-export const gameInitialState: State = {
+export const memoryGameInitialState: State = {
     state: "not_started",
     number: null,
     level: 0,
 };
 
-export const gameReducer = (game: State, action: Action): State => {
+export const memoryGameReducer = (game: State, action: Action): State => {
     switch (action.type) {
         case "new_game":
             return {
