@@ -71,13 +71,26 @@ export const TypeSpeedGame = () => {
         [textData, currentIndex, startNewTest, stats.state]
     );
 
+    // add key press event listener
     useEffect(() => {
         document.body.addEventListener("keypress", handleKeyPress);
-
         return () =>
             document.body.removeEventListener("keypress", handleKeyPress);
     }, [textData, handleKeyPress]);
 
+    // caret animation
+    useEffect(() => {
+        const caret = document.getElementById("caret");
+        const activeLetterElem = document.getElementById("active_letter");
+
+        if (caret && activeLetterElem) {
+            const boundingRect = activeLetterElem.getBoundingClientRect();
+            caret.style.top = `${boundingRect.top}px`;
+            caret.style.left = `${boundingRect.left}px`;
+        }
+    }, [currentIndex]);
+
+    // quote loading placeholder
     if (textData === null) {
         return (
             <SpinnerIcon className="w-40 m-auto text-secondary animate-spin" />
@@ -93,11 +106,18 @@ export const TypeSpeedGame = () => {
         let state: LetterState = "not_typed";
         if (index < currentIndex) {
             state = "correct";
-        } else if (index === currentIndex) {
-            state = stats.lastCharacterIsIncorrect ? "incorrect" : "active";
+        } else if (index === currentIndex && stats.lastCharacterIsIncorrect) {
+            state = "incorrect";
         }
 
-        return <Letter letter={letter} state={state} key={index} />;
+        return (
+            <Letter
+                letter={letter}
+                state={state}
+                key={index}
+                id={index === currentIndex ? "active_letter" : undefined}
+            />
+        );
     });
 
     return (
@@ -116,7 +136,15 @@ export const TypeSpeedGame = () => {
                     >
                         {stats.typedWords}/{textData.wordsCount}
                     </div>
-                    <div className="font-mono leading-10">
+                    <div className="relative font-mono leading-10">
+                        <div
+                            id="caret"
+                            className="fixed text-transparent transition-all duration-100 transform bg-secondary"
+                            style={{ zIndex: -1 }}
+                        >
+                            {/* add invisible letter to preserve the width and height */}
+                            {"a"}
+                        </div>
                         {renderedLetters}
                     </div>
                     <div
