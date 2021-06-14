@@ -27,6 +27,13 @@ export const TypeSpeedGame = () => {
     }, []);
 
     useEffect(() => {
+        const recalculateWpm = () =>
+            dispatchStatsEvent({ type: "recalculate_wpm" });
+        const intervalId = setInterval(recalculateWpm, 1000);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
         startNewTest();
     }, [startNewTest]);
 
@@ -82,14 +89,6 @@ export const TypeSpeedGame = () => {
             ? 100
             : Math.round((currentIndex / stats.typedLetters) * 100);
 
-    const endTime = stats.endTime || Date.now();
-    const wpm =
-        stats.startTime && endTime - stats.startTime > 100
-            ? Math.round(
-                  (stats.typedWords / (endTime - stats.startTime)) * 1000 * 60
-              )
-            : 0;
-
     const renderedLetters = textData.text.split("").map((letter, index) => {
         let state: LetterState = "not_typed";
         if (index < currentIndex) {
@@ -104,7 +103,7 @@ export const TypeSpeedGame = () => {
     return (
         <div className="w-full m-auto text-3xl">
             {stats.state === "done" ? (
-                <ResultBlock wpm={wpm} accuracy={accuracy} />
+                <ResultBlock wpm={stats.wpm} accuracy={accuracy} />
             ) : (
                 <div className="flex flex-col gap-8">
                     <div
@@ -128,7 +127,7 @@ export const TypeSpeedGame = () => {
                                 : "animate-appear-fast"
                         )}
                     >
-                        {wpm} {accuracy}%
+                        {stats.wpm} {accuracy}%
                     </div>
                 </div>
             )}
