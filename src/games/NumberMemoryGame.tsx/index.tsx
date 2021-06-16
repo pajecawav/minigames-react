@@ -23,7 +23,7 @@ export const NumberMemoryGame = () => {
         } else if (game.state === "done" || game.state === "not_started") {
             const handleKeyPress = (event: KeyboardEvent) => {
                 if (event.key === "Enter") {
-                    dispatchGameEvent({ type: "new_game" });
+                    startNewGame();
                 }
             };
             document.addEventListener("keypress", handleKeyPress);
@@ -31,6 +31,11 @@ export const NumberMemoryGame = () => {
                 document.removeEventListener("keypress", handleKeyPress);
         }
     }, [game.state]);
+
+    const startNewGame = () => {
+        dispatchGameEvent({ type: "new_game" });
+        setNumber("");
+    };
 
     const handleSubmitNumber = () => {
         if (!number) return;
@@ -46,10 +51,7 @@ export const NumberMemoryGame = () => {
     return (
         <div className="flex items-center m-auto text-3xl">
             {game.state === "not_started" && (
-                <Button
-                    text="Start"
-                    onClick={() => dispatchGameEvent({ type: "new_game" })}
-                />
+                <Button text="Start" onClick={startNewGame} />
             )}
             {game.state === "showing_number" && (
                 <div className="flex flex-col items-center gap-4">
@@ -93,10 +95,7 @@ export const NumberMemoryGame = () => {
                         <div>Your Answer</div>
                         <div className="line-through text-error">{number}</div>
                     </div>
-                    <Button
-                        text="Restart"
-                        onClick={() => dispatchGameEvent({ type: "new_game" })}
-                    />
+                    <Button text="Restart" onClick={startNewGame} />
                 </div>
             )}
         </div>
