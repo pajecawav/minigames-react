@@ -48,6 +48,13 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px;
 }
 
+@layer utilities {
+    .rotate-x-180 {
+        /* NOTE: breaks tailwind's transform utility */
+        transform: rotateX(180deg);
+    }
+}
+
 @keyframes shrink {
     from {
         width: 100%;

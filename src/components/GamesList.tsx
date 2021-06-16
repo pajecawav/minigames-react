@@ -19,7 +19,7 @@ const GameLink = ({
 }: GameLinkProps) => (
     <Link
         className={classnames(
-            "flex flex-col items-center p-6 bg-primary-600 rounded-xl shadow-sm text-5xl text-primary-400 transition-all duration-300 transform hover:text-secondary hover:-translate-y-1.5",
+            "flex flex-col justify-center items-center p-6 bg-primary-600 rounded-xl shadow-sm text-5xl text-primary-400 transition-all duration-300 transform hover:text-secondary hover:-translate-y-1.5",
             className
         )}
         {...props}
@@ -31,7 +31,7 @@ const GameLink = ({
 
 export const GamesList = () => (
     <div className="flex items-center justify-center w-full h-full">
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <GameLink
                 to="/reaction-time"
                 text="Reaction Time"
@@ -44,6 +44,7 @@ export const GamesList = () => (
                 icon={CalculatorIcon}
             />
             <GameLink to="/visual-memory" text="Visual Memory" />
+            <GameLink to="/pattern-memory" text="Pattern Memory" />
         </div>
     </div>
 );
