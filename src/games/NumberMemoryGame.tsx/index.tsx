@@ -70,7 +70,7 @@ export const NumberMemoryGame = () => {
             )}
             {game.state === "waiting_input" && (
                 <div className="flex flex-col items-center gap-4">
-                    <div>What was the number?</div>
+                    <div className="text-center">What was the number?</div>
                     <Input
                         className="text-center w-80"
                         value={number}

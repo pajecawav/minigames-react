@@ -61,7 +61,7 @@ export const ReactionTimeGame = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-6 text-3xl">
+        <div className="flex flex-col items-center justify-center w-full gap-6 m-auto text-3xl">
             {gameState === "not_started" && (
                 <Button text="Start" onClick={restartGame} />
             )}

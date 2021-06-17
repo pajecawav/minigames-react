@@ -186,7 +186,7 @@ export const VisualMemoryGame = () => {
     }
 
     return (
-        <div className="flex items-center justify-center w-full text-3xl">
+        <div className="flex items-center justify-center w-full m-auto text-3xl">
             {game.state === "not_started" && (
                 <Button text="Start" onClick={startNewGame} />
             )}

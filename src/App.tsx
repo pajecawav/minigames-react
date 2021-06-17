@@ -10,7 +10,14 @@ import { VisualMemoryGame } from "./games/VisualMemoryGame";
 export const App = () => {
     return (
         <Router>
-            <div className="relative flex w-full h-full max-w-4xl px-4 mx-auto text-primary-500">
+            <div className="flex flex-col w-full max-w-4xl min-h-full px-4 pb-6 mx-auto text-primary-500">
+                <Link
+                    className="mb-10 font-mono text-5xl transition-colors duration-500 text-secondary"
+                    to="/"
+                >
+                    minigames
+                </Link>
+
                 <Switch>
                     <Route exact path="/" component={GamesList} />
                     <Route
@@ -36,13 +43,6 @@ export const App = () => {
                     />
                     <Redirect to="/" />
                 </Switch>
-
-                <Link
-                    className="absolute font-mono text-5xl transition-colors duration-500 top-4 text-secondary"
-                    to="/"
-                >
-                    minigames
-                </Link>
             </div>
         </Router>
     );

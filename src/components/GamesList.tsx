@@ -30,8 +30,8 @@ const GameLink = ({
 );
 
 export const GamesList = () => (
-    <div className="flex items-center justify-center w-full h-full">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+    <div className="flex items-center justify-center w-full">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 auto-rows-fr">
             <GameLink
                 to="/reaction-time"
                 text="Reaction Time"
