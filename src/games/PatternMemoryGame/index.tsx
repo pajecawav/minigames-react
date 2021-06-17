@@ -7,7 +7,7 @@ import {
     patternMemoryGameReducer,
 } from "./patternMemoryGameReducer";
 
-const SHOW_CELLS_TIMEOUT_MS = 2000;
+const SHOW_CELLS_TIMEOUT_MS = 1000;
 const DELAY_BETWEEN_LEVELS_MS = 1000;
 
 export const PatternMemoryGame = () => {
@@ -48,13 +48,17 @@ export const PatternMemoryGame = () => {
     }, [startNewGame]);
 
     const handleCellClick = (y: number, x: number) => {
-        if (!game.cells || game.state !== "clicking") return;
+        if (!game.cells || game.state !== "clicking") {
+            return;
+        }
+
+        if (game.hiddenCellsAmount === 0) {
+            return;
+        }
 
         if (game.cells[y][x] === CellStatusEnum.empty) {
             dispatchGameEvent({ type: "end_game" });
-        } else if (game.cells[y][x] === CellStatusEnum.revealed) {
-            return;
-        } else {
+        } else if (game.cells[y][x] !== CellStatusEnum.revealed) {
             const isLastCell = game.hiddenCellsAmount === 1;
 
             dispatchGameEvent({
@@ -64,16 +68,15 @@ export const PatternMemoryGame = () => {
             });
 
             if (isLastCell) {
-                const timeoutID = setTimeout(() => {
+                setTimeout(() => {
                     dispatchGameEvent({ type: "next_level" });
                 }, DELAY_BETWEEN_LEVELS_MS);
-                return () => clearTimeout(timeoutID);
             }
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-full text-3xl">
+        <div className="flex flex-col items-center justify-center w-full max-w-xl m-auto text-3xl">
             {game.state === "not_started" && (
                 <Button text="Start" onClick={startNewGame} />
             )}
